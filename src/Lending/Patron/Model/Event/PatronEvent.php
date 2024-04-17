@@ -3,12 +3,15 @@
 namespace App\Lending\Patron\Model\Event;
 
 use App\Commons\Event\DomainEvent;
-use Illuminate\Support\Collection;
+use Munus\Collection\GenericList;
+use Symfony\Component\Uid\Uuid;
 
 interface PatronEvent extends DomainEvent
 {
     /**
-     * @return Collection<PatronEvent>
+     * @return GenericList<PatronEvent>
      */
-    public function normalize(): Collection;
+    public function normalize(): GenericList;
+
+    public function patronId(): Uuid;
 }

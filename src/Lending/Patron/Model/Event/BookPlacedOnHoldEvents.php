@@ -5,7 +5,7 @@ namespace App\Lending\Patron\Model\Event;
 use App\Commons\Event\DomainEvent;
 use App\Commons\Event\DomainEventTrait;
 use Carbon\CarbonImmutable;
-use Illuminate\Support\Collection;
+use Munus\Collection\GenericList;
 use Munus\Control\Option;
 use Symfony\Component\Uid\Uuid;
 
@@ -20,7 +20,7 @@ final readonly class BookPlacedOnHoldEvents implements PatronEvent
         protected Uuid $eventId,
         protected Uuid $aggregateId,
         protected CarbonImmutable $when,
-        public Uuid $patronId,
+        protected Uuid $patronId,
         public BookPlacedOnHold $bookPlacedOnHold,
         public Option $maximumNumberOhHoldsReached,
     ) {
@@ -29,13 +29,12 @@ final readonly class BookPlacedOnHoldEvents implements PatronEvent
     public static function events(
         BookPlacedOnHold $bookPlacedOnHold,
         ?MaximumNumberOhHoldsReached $maximumNumberOhHoldsReached = null,
-    ): self
-    {
+    ): self {
         return new self(
             Uuid::v7(),
-            $bookPlacedOnHold->patronId,
+            $bookPlacedOnHold->patronId(),
             CarbonImmutable::now(),
-            $bookPlacedOnHold->patronId,
+            $bookPlacedOnHold->patronId(),
             $bookPlacedOnHold,
             $maximumNumberOhHoldsReached ? Option::of($maximumNumberOhHoldsReached) : Option::none(),
         );
@@ -47,12 +46,12 @@ final readonly class BookPlacedOnHoldEvents implements PatronEvent
     }
 
     /**
-     * @return Collection<DomainEvent>
+     * @return GenericList<DomainEvent>
      */
-    public function normalize(): Collection
+    public function normalize(): GenericList
     {
-        return Collection::make($this->bookPlacedOnHold)
-            ->merge($this->maximumNumberOhHoldsReached->toArray())
+        return GenericList::of($this->bookPlacedOnHold)
+            ->appendAll($this->maximumNumberOhHoldsReached->toStream())
         ;
     }
 }

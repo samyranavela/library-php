@@ -14,6 +14,11 @@ final readonly class PatronProfile
     ) {
     }
 
+    public static function create(HoldsView $holdsView, CheckoutsView $checkoutsView): self
+    {
+        return new self($holdsView, $checkoutsView);
+    }
+
     /**
      * @return Option<Hold>
      */

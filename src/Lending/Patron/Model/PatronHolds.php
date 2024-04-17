@@ -2,20 +2,24 @@
 
 namespace App\Lending\Patron\Model;
 
-use App\Lending\Book\Model\AvailableBook;
 use App\Lending\Book\Model\BookOnHold;
-use Illuminate\Support\Collection;
+use Munus\Collection\Set;
 
 final readonly class PatronHolds
 {
     public const int MAX_NUMBER_OF_HOLDS = 5;
 
     /**
-     * @param Collection<Hold> $resourcesOnHold
+     * @param Set<Hold> $resourcesOnHold
      */
-    public function __construct(
-        public Collection $resourcesOnHold,
+    private function __construct(
+        public Set $resourcesOnHold,
     ) {
+    }
+
+    public static function create(Set $resourcesOnHold): self
+    {
+        return new self($resourcesOnHold);
     }
 
     public function a(BookOnHold $bookOnHold): bool
@@ -27,7 +31,7 @@ final readonly class PatronHolds
 
     public function count(): int
     {
-        return $this->resourcesOnHold->count();
+        return $this->resourcesOnHold->length();
     }
 
     public function maximumHoldsAfterHolding(): bool

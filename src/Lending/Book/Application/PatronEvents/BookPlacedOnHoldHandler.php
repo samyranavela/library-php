@@ -51,7 +51,7 @@ final readonly class BookPlacedOnHoldHandler
             BookDuplicateHoldFound::now(
                 $bookOnHold->bookId(),
                 $bookOnHold->byPatron,
-                PatronId::from($bookPlacedOnHold->patronId),
+                PatronId::from($bookPlacedOnHold->patronId()),
                 LibraryBranchId::from($bookPlacedOnHold->libraryBranchId),
             )
         );

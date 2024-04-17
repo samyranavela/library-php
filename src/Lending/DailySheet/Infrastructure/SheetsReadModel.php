@@ -107,7 +107,7 @@ final readonly class SheetsReadModel implements DailySheet, EventSubscriberInter
                 'book_id' => $event->bookId,
                 'status' => 'ACTIVE',
                 'hold_event_id' => $event->eventId(),
-                'hold_by_patron_id' => $event->patronId,
+                'hold_by_patron_id' => $event->patronId(),
                 'hold_at' => $event->when(),
                 'hold_till' => $event->holdTill,
                 'hold_at_branch' => $event->libraryBranchId,
@@ -137,7 +137,7 @@ final readonly class SheetsReadModel implements DailySheet, EventSubscriberInter
             [
                 'canceled_at' => null,
                 'book_id' => $event->bookId,
-                'hold_by_patron_id' => $event->patronId,
+                'hold_by_patron_id' => $event->patronId(),
             ],
             [
                 'canceled_at' => Types::DATE_IMMUTABLE,
@@ -147,6 +147,9 @@ final readonly class SheetsReadModel implements DailySheet, EventSubscriberInter
         );
     }
 
+    /**
+     * @throws Exception
+     */
     public function handleBookHoldExpired(BookHoldExpired $event): void
     {
         $this->connection->update(
@@ -158,7 +161,7 @@ final readonly class SheetsReadModel implements DailySheet, EventSubscriberInter
             [
                 'expired_at' => null,
                 'book_id' => $event->bookId,
-                'hold_by_patron_id' => $event->patronId,
+                'hold_by_patron_id' => $event->patronId(),
             ],
             [
                 'canceled_at' => Types::DATE_IMMUTABLE,
@@ -188,7 +191,7 @@ final readonly class SheetsReadModel implements DailySheet, EventSubscriberInter
                 'book_id' => $event->bookId,
                 'status' => 'CHECKEDOUT',
                 'checkout_event_id' => $event->eventId(),
-                'checked_out_by_patron_id' => $event->patronId,
+                'checked_out_by_patron_id' => $event->patronId(),
                 'checked_out_at' => $event->when(),
                 'checkout_till' => $event->till,
                 'checked_out_at_branch' => $event->libraryBranchId,
@@ -212,7 +215,7 @@ final readonly class SheetsReadModel implements DailySheet, EventSubscriberInter
             [
                 'status' => null,
                 'book_id' => $event->bookId,
-                'hold_by_patron_id' => $event->patronId,
+                'hold_by_patron_id' => $event->patronId(),
             ],
             [
                 'checked_out_at' => Types::DATE_IMMUTABLE,
@@ -247,7 +250,7 @@ final readonly class SheetsReadModel implements DailySheet, EventSubscriberInter
             [
                 'status' => null,
                 'book_id' => $event->bookId,
-                'checked_out_by_patron_id' => $event->patronId,
+                'checked_out_by_patron_id' => $event->patronId(),
             ],
             [
                 'returned_at' => Types::DATE_IMMUTABLE,
@@ -268,7 +271,7 @@ final readonly class SheetsReadModel implements DailySheet, EventSubscriberInter
                 'book_id' => $event->bookId,
                 'status' => 'CHECKEDOUT',
                 'checkout_event_id' => $event->eventId(),
-                'checked_out_by_patron_id' => $event->patronId,
+                'checked_out_by_patron_id' => $event->patronId(),
                 'checked_out_at' => $event->when(),
             ],
             [

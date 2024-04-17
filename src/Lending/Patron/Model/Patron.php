@@ -130,7 +130,7 @@ final readonly class Patron
     private function patronCanHold(AvailableBook $availableBook, HoldDuration $forDuration): Option
     {
         return $this->placingOnHoldPolicies
-            ->map(static fn (callable $callable) => $callable($availableBook, $this, $forDuration))
+            ->map(static fn (callable $policy) => $policy($availableBook, $this, $forDuration))
             ->find(static fn (Either $either) => $either->isLeft())
             ->map(static fn (Either $either) => $either->getLeft())
         ;
