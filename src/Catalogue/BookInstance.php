@@ -2,6 +2,8 @@
 
 namespace App\Catalogue;
 
+use App\Catalogue\Book\Book;
+
 final readonly class BookInstance
 {
     private function __construct(

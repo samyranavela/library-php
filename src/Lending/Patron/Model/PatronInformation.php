@@ -4,10 +4,15 @@ namespace App\Lending\Patron\Model;
 
 final readonly class PatronInformation
 {
-    public function __construct(
+    private function __construct(
         public PatronId $patronId,
         public PatronType $type,
     ) {
+    }
+
+    public static function create(PatronType $patronType, PatronId $patronId): self
+    {
+        return new self($patronId, $patronType);
     }
 
     public function isRegular(): bool

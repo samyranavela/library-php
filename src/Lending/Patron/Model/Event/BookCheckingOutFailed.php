@@ -18,9 +18,9 @@ final readonly class BookCheckingOutFailed implements PatronEvent
         protected Uuid $eventId,
         protected Uuid $aggregateId,
         protected CarbonImmutable $when,
+        protected Uuid $patronId,
         public string $reason,
         public Uuid $bookId,
-        public Uuid $patronId,
         public Uuid $libraryBranchId,
     ) {
     }
@@ -36,9 +36,9 @@ final readonly class BookCheckingOutFailed implements PatronEvent
             Uuid::v7(),
             $patronId->patronId,
             CarbonImmutable::now(),
+            $patronId->patronId,
             $rejection->reason->reason,
             $bookId->bookId,
-            $patronId->patronId,
             $libraryBranchId->libraryBranchId,
         );
     }

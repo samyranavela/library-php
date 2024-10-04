@@ -17,8 +17,8 @@ final readonly class BookHoldExpired implements PatronEvent
         protected Uuid $eventId,
         protected Uuid $aggregateId,
         protected CarbonImmutable $when,
+        protected Uuid $patronId,
         public Uuid $bookId,
-        public Uuid $patronId,
         public Uuid $libraryBranchId,
     ) {
     }
@@ -33,8 +33,8 @@ final readonly class BookHoldExpired implements PatronEvent
             Uuid::v7(),
             $patronId->patronId,
             CarbonImmutable::now(),
-            $bookId->bookId,
             $patronId->patronId,
+            $bookId->bookId,
             $libraryBranchId->libraryBranchId,
         );
     }

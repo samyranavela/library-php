@@ -2,14 +2,17 @@
 
 namespace App\Catalogue;
 
+use App\Catalogue\Book\Book;
+use App\Catalogue\CatalogDatabase\CatalogDatabase;
 use App\Commons\Command\Result;
 use App\Commons\Event\DomainEvents;
+use Doctrine\DBAL\Exception;
 use Munus\Control\TryTo;
 
 final readonly class Catalogue
 {
     public function __construct(
-        private CatalogueRepository $repository,
+        private CatalogDatabase $repository,
         private DomainEvents $domainEvents,
     ) {
     }
@@ -44,6 +47,9 @@ final readonly class Catalogue
         );
     }
 
+    /**
+     * @throws Exception
+     */
     private function saveAndPublishEvent(BookInstance $bookInstance): BookInstance
     {
         $this->repository->saveNewBookInstance($bookInstance);

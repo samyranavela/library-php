@@ -2,7 +2,9 @@
 
 namespace App\Commons\Aggregates;
 
-final  class AggregateRootIsStale extends \RuntimeException
+use RuntimeException;
+
+final class AggregateRootIsStale extends RuntimeException
 {
     public function __construct(string $message = "")
     {

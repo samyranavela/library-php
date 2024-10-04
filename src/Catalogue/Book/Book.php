@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Catalogue;
+namespace App\Catalogue\Book;
+
+use App\Catalogue\ISBN;
 
 final readonly class Book
 {

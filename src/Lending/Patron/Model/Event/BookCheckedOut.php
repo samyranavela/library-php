@@ -19,8 +19,8 @@ final readonly class BookCheckedOut implements PatronEvent
         protected Uuid $eventId,
         protected Uuid $aggregateId,
         protected CarbonImmutable $when,
+        protected Uuid $patronId,
         public Uuid $bookId,
-        public Uuid $patronId,
         public BookType $bookType,
         public Uuid $libraryBranchId,
         public CarbonImmutable $till,
@@ -33,14 +33,13 @@ final readonly class BookCheckedOut implements PatronEvent
         PatronId $patronId,
         LibraryBranchId $libraryBranchId,
         CheckoutDuration $checkoutDuration,
-    ): self
-    {
+    ): self {
         return new self(
             Uuid::v7(),
             $patronId->patronId,
             CarbonImmutable::now(),
-            $bookId->bookId,
             $patronId->patronId,
+            $bookId->bookId,
             $bookType,
             $libraryBranchId->libraryBranchId,
             $checkoutDuration->to,

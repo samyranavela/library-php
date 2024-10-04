@@ -2,15 +2,26 @@
 
 namespace App\Lending\Patron\Model\Event;
 
-use Illuminate\Support\Collection;
+use Munus\Collection\GenericList;
+use Symfony\Component\Uid\Uuid;
 
 trait PatronEventTrait
 {
+    public function __construct(
+        protected readonly Uuid $patronId,
+    ) {
+    }
+
     /**
-     * @return Collection<PatronEvent>
+     * @return GenericList<PatronEvent>
      */
-    public function normalize(): Collection
+    public function normalize(): GenericList
     {
-        return Collection::make($this);
+        return GenericList::of($this);
+    }
+
+    public function patronId(): Uuid
+    {
+        return $this->patronId;
     }
 }

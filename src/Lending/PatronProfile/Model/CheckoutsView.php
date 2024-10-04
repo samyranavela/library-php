@@ -6,8 +6,13 @@ use Illuminate\Support\Collection;
 
 final readonly class CheckoutsView
 {
-    public function __construct(
+    private function __construct(
         public Collection $currentCheckouts,
     ) {
+    }
+
+    public static function create(Collection $currentCheckouts): self
+    {
+        return new self($currentCheckouts);
     }
 }

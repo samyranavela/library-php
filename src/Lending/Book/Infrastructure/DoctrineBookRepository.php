@@ -15,7 +15,7 @@ use App\Lending\Patron\Application\Hold\FindBookOnHold;
 use App\Lending\Patron\Model\PatronId;
 use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Exception;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Munus\Control\Option;
 use Munus\Control\TryTo;
@@ -26,7 +26,7 @@ final readonly class DoctrineBookRepository implements BookRepository, FindAvail
     private EntityRepository $entityRepository;
 
     public function __construct(
-        private EntityManager $entityManager
+        private EntityManagerInterface $entityManager,
     ) {
         $this->entityRepository = $entityManager->getRepository(BookEntity::class);
     }

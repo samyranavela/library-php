@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Catalogue;
+namespace App\Catalogue\Book;
 
 use Webmozart\Assert\Assert;
 

@@ -15,7 +15,7 @@ final readonly class MaximumNumberOhHoldsReached implements PatronEvent
         protected Uuid $eventId,
         protected Uuid $aggregateId,
         protected CarbonImmutable $when,
-        public Uuid $patronId,
+        protected Uuid $patronId,
         public int $numberOfHolds,
     ) {
     }
